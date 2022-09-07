@@ -17,6 +17,15 @@ class UserController {
         });
     }
 
+    static listUsersByName = (req, res) => {
+        const name = req.query.name;
+
+        users.find({'name': {$regex: name}}, {}, (err, users) => {
+            err ? res.status(404).send('user not found')
+                : res.status(200).send(users)
+        })
+    }
+
     static listUsersById = (req, res) => {
         const id = req.params.id;
 
@@ -30,7 +39,7 @@ class UserController {
         const id = req.params.id;
 
         users.findByIdAndUpdate(id, { $set: req.body }, (err) => {
-            err ? res.status(404).send({ message: err.message })
+            err ? res.status(404).send({message: err.message})
                 : res.status(200).send('User updated succefully!')
         });
     }
@@ -39,7 +48,7 @@ class UserController {
         const id = req.params.id;
 
         users.findByIdAndDelete(id, (err) => {
-            err ? res.status(404).send({ message: err.message })
+            err ? res.status(404).send({message: err.message})
                 : res.status(204).send('User was deleted succefully!')
         });
     }
