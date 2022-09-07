@@ -9,5 +9,6 @@ router
     .get("/api/v1/users/:id", UserController.listUsersById)
     .post("/api/v1/users", UserController.registerUser)
     .put("/api/v1/users/:id", UserController.updateUser)
+    .delete("/api/v1/users/:id", UserController.deleteUser)
 
 export default router;
