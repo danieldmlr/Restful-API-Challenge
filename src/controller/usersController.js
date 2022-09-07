@@ -16,6 +16,15 @@ class UserController {
             res.status(200).json(users)
         })
     }
+
+    static updateUser = (req, res) => {
+        const id = req.params.id;
+
+        users.findByIdAndUpdate(id, {$set: req.body}, (err) => {
+            err ? res.status(500).send({message: err.message}) 
+                : res.status(200).send('User updated succefully!')
+        })
+    }
 }
 
 export default UserController;
