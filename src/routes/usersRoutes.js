@@ -6,6 +6,7 @@ const router = express.Router();
 router
 
     .get("/api/v1/users", UserController.listUsers)
+    .get("/api/v1/users/list", UserController.listUsersPagination)
     .get("/api/v1/users/search", UserController.listUsersByName)
     .get("/api/v1/users/:id", UserController.listUsersById)
     .post("/api/v1/users", UserController.registerUser)
