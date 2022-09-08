@@ -1,14 +1,19 @@
 import mongoose from "mongoose";
 
 const birthDate = (birth) => {
-    
-    let birthDate = new Date(birth)
-    let currentDate = new Date()
-    
-    let age = Math.floor((currentDate - birthDate) / 31536000000)
+;
+    let birthDate = new Date(birth);
+    let currentDate = new Date();
+    let year = 31536000000;
+    let age = Math.floor((currentDate - birthDate) / year);
 
     return age >= 18 ? true : false;
 
+}
+
+const formatDate = (date) => {
+    let formatedDate = new Date(date);
+    return formatedDate.toLocaleDateString();
 }
 
 const userSchema = new mongoose.Schema(
@@ -16,7 +21,7 @@ const userSchema = new mongoose.Schema(
         id: { type: String },
         name: { type: String, required: true, validate: /[A-zÀ-ú\s]+$/ },
         cpf: { type: String, minlength: 11, maxlength: 11, required: true, validate: /^[0-9]*$/ },
-        birthDate: { type: Date, required: true, validate: [birthDate] },
+        birthDate: { type: String, set: date => formatDate(date), required: true, validate: [birthDate] },
         email: { type: String, required: true, validate: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/ },
         password: { type: String, minlength: 6, required: true },
         address: { type: String, required: true, validate: /[A-zÀ-ú\s]/ },
