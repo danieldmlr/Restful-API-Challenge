@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema(
         city: { type: String, validate: /[A-zÀ-ú\s]/, required: true },
         state: { type: String, validate: /[A-zÀ-ú\s]/, required: true },
         country: { type: String, validate: /[A-zÀ-ú\s]/, required: true },
-        zipCode: { type: String, validate: /^[0-9]*$/, length: 8, required: true }
+        zipCode: { type: String, validate: /^[0-9]*$/, minlength: 8, maxlength:8, required: true }
     },
     {
         versionKey: false
