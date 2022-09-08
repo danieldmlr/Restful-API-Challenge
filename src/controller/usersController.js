@@ -8,10 +8,11 @@ class UserController {
         user.save((err) => {
             err ? res.status(500).send('Failed to register user, one or more fields are incorret or must be filled')
                 : res.status(201).send(user.toJSON())
-        });
+        }); 
     }
 
     static listUsers = (req, res) => {
+        
         users.find((err, users) => {
 
             const page = req.query.page;
@@ -30,9 +31,9 @@ class UserController {
     static listUsersByName = (req, res) => {
         const name = req.query.name;
 
-        users.find({ 'name': { $regex: name } }, {}, (err, users) => {
+        users.find({ 'name': { $regex: name, $options: 'i'} }, {}, (err, users) => {
             
-            err ? res.status(404).send('user not found')
+            users.length == 0 ? res.status(404).send('user not found')
                 : res.status(200).send(users)
 
         }).select("-password");
