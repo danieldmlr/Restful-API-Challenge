@@ -1,11 +1,13 @@
 import mongoose from "mongoose";
 
-const birthDate = () => {
-
+const birthDate = (birth) => {
+    
+    let birthDate = new Date(birth)
     let currentDate = new Date()
+    
     let age = Math.floor((currentDate - birthDate) / 31536000000)
 
-    return age > 17 ? true : false;
+    return age >= 18 ? true : false;
 
 }
 
